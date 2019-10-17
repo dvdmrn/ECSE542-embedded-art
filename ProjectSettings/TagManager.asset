@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Quad
+  - Video Player
   layers:
   - Default
   - TransparentFX
