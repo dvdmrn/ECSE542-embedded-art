@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MonitorUSB : MonoBehaviour
 {
@@ -9,18 +10,29 @@ public class MonitorUSB : MonoBehaviour
     // https://answers.unity.com/questions/1024305/gameobject-find-nullreferenceexception-object-refe.html lol
     public bool debug;
     public int devices;
+    //----------UI--------------------
+    public Text uitext = null;
+    public Image uiImage;
+    //----------UI--------------------
 
     int lastAmountOfDevices;
     public int inferredDeviceCount;
     GameObject[] FoundObject;
     GameObject[] FoundVideoPlayer;
+    
+    void Start(){
+        uitext.text = "0 Phone detected";
+        if (uiImage == null){
+            uiImage = GetComponent<Image>();
+        }
+    }
 
     void Awake()
     {
         inferredDeviceCount = 0;
         devices = getNumberOfUSB();
         lastAmountOfDevices = devices;
-        print("henlo");
+        print("Hello :)");
         StartCoroutine("PingUSB");
         FoundObject = GameObject.FindGameObjectsWithTag("Quad");
         FoundVideoPlayer = GameObject.FindGameObjectsWithTag("Video Player");
@@ -86,6 +98,14 @@ public class MonitorUSB : MonoBehaviour
 
                 inferredDeviceCount++;
 
+                if (inferredDeviceCount <= 1)
+                    uitext.text = inferredDeviceCount + " Phone detected";
+                else
+                    uitext.text = inferredDeviceCount + " Phones detected"; 
+
+                if (inferredDeviceCount > 0)
+                    uiImage.enabled = false;
+
                 for (int i = 1; i < FoundObject.Length; i++)
                 {
                     if (i == inferredDeviceCount)
@@ -124,7 +144,15 @@ public class MonitorUSB : MonoBehaviour
                 }
 
                 inferredDeviceCount--;
+                
+                if (inferredDeviceCount == 0)
+                     uiImage.enabled = true;
 
+                if (inferredDeviceCount <= 1)
+                    uitext.text = inferredDeviceCount + " Phone detected";
+                else
+                    uitext.text = inferredDeviceCount + " Phones detected"; 
+                
                 switch (inferredDeviceCount)
                 {
                     case 0:
