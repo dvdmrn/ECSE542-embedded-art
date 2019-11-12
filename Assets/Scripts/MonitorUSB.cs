@@ -19,11 +19,15 @@ public class MonitorUSB : MonoBehaviour
     public int inferredDeviceCount;
     GameObject[] FoundObject;
     GameObject[] FoundVideoPlayer;
-    
+
+    public PixelSort ps;
+    int phoneCount;
+
     void Start(){
         uitext.text = "0 phones detected";
         if (uiImage == null){
             uiImage = GetComponent<Image>();
+            phoneCount = ps.phoneCount;
         }
     }
 
@@ -36,14 +40,14 @@ public class MonitorUSB : MonoBehaviour
         StartCoroutine("PingUSB");
         // FoundObject = GameObject.FindGameObjectsWithTag("Quad");
         // FoundVideoPlayer = GameObject.FindGameObjectsWithTag("Video Player");
-        foreach (GameObject obj in FoundObject)
-        {
-            obj.SetActive(false);
-        }
-        foreach (GameObject obj in FoundVideoPlayer)
-        {
-            obj.SetActive(false);
-        }
+        //foreach (GameObject obj in FoundObject)
+        //{
+        //    obj.SetActive(false);
+        //}
+        //foreach (GameObject obj in FoundVideoPlayer)
+        //{
+        //    obj.SetActive(false);
+        //}
     }
 
     int getNumberOfUSB()
@@ -79,25 +83,24 @@ public class MonitorUSB : MonoBehaviour
             { // chunking like this because sometimes a phone shows up as >1 device...
                 switch (inferredDeviceCount)
                 {
-                    case 0:
-                        Debug.Log("in! FoundObject is " + FoundObject[0].name + " to be deactive");
-                        FoundObject[0].SetActive(false);
-                        FoundVideoPlayer[3].SetActive(false);
-                        break;
-                    case 1:
-                        Debug.Log("in! FoundObject is " + FoundObject[3].name + " to be deactive");
-                        FoundObject[3].SetActive(false);
-                        FoundVideoPlayer[2].SetActive(false);
-                        break;
-                    case 2:
-                        Debug.Log("in! FoundObject is " + FoundObject[2].name + " to be deactive");
-                        FoundObject[2].SetActive(false);
-                        FoundVideoPlayer[1].SetActive(false);
-                        break;
+                    //case 0:
+                    //    Debug.Log("in! FoundObject is " + FoundObject[0].name + " to be deactive");
+                    //    FoundObject[0].SetActive(false);
+                    //    FoundVideoPlayer[3].SetActive(false);
+                    //    break;
+                    //case 1:
+                    //    Debug.Log("in! FoundObject is " + FoundObject[3].name + " to be deactive");
+                    //    FoundObject[3].SetActive(false);
+                    //    FoundVideoPlayer[2].SetActive(false);
+                    //    break;
+                    //case 2:
+                    //    Debug.Log("in! FoundObject is " + FoundObject[2].name + " to be deactive");
+                    //    FoundObject[2].SetActive(false);
+                    //    FoundVideoPlayer[1].SetActive(false);
+                    //    break;
                 }
 
                 inferredDeviceCount++;
-
                 if (inferredDeviceCount <= 1)
                     uitext.text = inferredDeviceCount + " phones detected";
                 else
@@ -106,44 +109,45 @@ public class MonitorUSB : MonoBehaviour
                 if (inferredDeviceCount > 0)
                     uiImage.enabled = false;
 
-                for (int i = 1; i < FoundObject.Length; i++)
-                {
-                    if (i == inferredDeviceCount)
-                    {
-                        FoundObject[4 - i].SetActive(i == inferredDeviceCount);   //SetActive true if equal
-                        Debug.Log("in! FoundObject is " + FoundObject[4 - i].name + " to be active");
-                    }
-                }
-                for (int i = 1; i < FoundVideoPlayer.Length; i++)
-                {
-                    if (i == inferredDeviceCount)
-                    {
-                        FoundVideoPlayer[3 - i].SetActive(i == inferredDeviceCount);   //SetActive true if equal
-                    }
-                }
+                //for (int i = 1; i < FoundObject.Length; i++)
+                //{
+                //    if (i == inferredDeviceCount)
+                //    {
+                //        FoundObject[4 - i].SetActive(i == inferredDeviceCount);   //SetActive true if equal
+                //        Debug.Log("in! FoundObject is " + FoundObject[4 - i].name + " to be active");
+                //    }
+                //}
+                //for (int i = 1; i < FoundVideoPlayer.Length; i++)
+                //{
+                //    if (i == inferredDeviceCount)
+                //    {
+                //        FoundVideoPlayer[3 - i].SetActive(i == inferredDeviceCount);   //SetActive true if equal
+                //    }
+                //}
 
                 lastAmountOfDevices = devices;
             }
             else if (devices < lastAmountOfDevices)
             {
 
-                for (int i = 1; i < FoundObject.Length; i++)
-                {
-                    if (i == inferredDeviceCount)
-                    {
-                        FoundObject[4 - i].SetActive(false);
-                        Debug.Log("out! FoundObject is " + FoundObject[4 - i].name + " to be deactive");
-                    }
-                }
-                for (int i = 1; i < FoundVideoPlayer.Length; i++)
-                {
-                    if (i == inferredDeviceCount)
-                    {
-                        FoundVideoPlayer[3 - i].SetActive(false);
-                    }
-                }
+                //for (int i = 1; i < FoundObject.Length; i++)
+                //{
+                //    if (i == inferredDeviceCount)
+                //    {
+                //        FoundObject[4 - i].SetActive(false);
+                //        Debug.Log("out! FoundObject is " + FoundObject[4 - i].name + " to be deactive");
+                //    }
+                //}
+                //for (int i = 1; i < FoundVideoPlayer.Length; i++)
+                //{
+                //    if (i == inferredDeviceCount)
+                //    {
+                //        FoundVideoPlayer[3 - i].SetActive(false);
+                //    }
+                //}
 
                 inferredDeviceCount--;
+
                 
                 if (inferredDeviceCount == 0)
                      uiImage.enabled = true;
@@ -153,32 +157,33 @@ public class MonitorUSB : MonoBehaviour
                 else
                     uitext.text = inferredDeviceCount + " phoness detected"; 
                 
-                switch (inferredDeviceCount)
-                {
-                    case 0:
-                        Debug.Log("out! FoundObject is " + FoundObject[0].name + " to be active");
-                        FoundObject[0].SetActive(true);
-                        FoundVideoPlayer[3].SetActive(true);
-                        break;
-                    case 1:
-                        Debug.Log("out! FoundObject is " + FoundObject[3].name + " to be active");
-                        FoundObject[3].SetActive(true);
-                        FoundVideoPlayer[2].SetActive(true);
-                        break;
-                    case 2:
-                        Debug.Log("out! FoundObject is " + FoundObject[2].name + " to be active");
-                        FoundObject[2].SetActive(true);
-                        FoundVideoPlayer[1].SetActive(true);
-                        break;
-                    case 3:
-                        Debug.Log("out! FoundObject is " + FoundObject[1].name + " to be active");
-                        FoundObject[1].SetActive(true);
-                        FoundVideoPlayer[0].SetActive(true);
-                        break;
-                }
+                //switch (inferredDeviceCount)
+                //{
+                //    case 0:
+                //        Debug.Log("out! FoundObject is " + FoundObject[0].name + " to be active");
+                //        FoundObject[0].SetActive(true);
+                //        FoundVideoPlayer[3].SetActive(true);
+                //        break;
+                //    case 1:
+                //        Debug.Log("out! FoundObject is " + FoundObject[3].name + " to be active");
+                //        FoundObject[3].SetActive(true);
+                //        FoundVideoPlayer[2].SetActive(true);
+                //        break;
+                //    case 2:
+                //        Debug.Log("out! FoundObject is " + FoundObject[2].name + " to be active");
+                //        FoundObject[2].SetActive(true);
+                //        FoundVideoPlayer[1].SetActive(true);
+                //        break;
+                //    case 3:
+                //        Debug.Log("out! FoundObject is " + FoundObject[1].name + " to be active");
+                //        FoundObject[1].SetActive(true);
+                //        FoundVideoPlayer[0].SetActive(true);
+                //        break;
+                //}
 
                 lastAmountOfDevices = devices;
             }
+            ps.phoneCount = inferredDeviceCount;
             yield return new WaitForSeconds(1f);
         }
     }

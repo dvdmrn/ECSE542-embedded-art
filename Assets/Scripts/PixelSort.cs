@@ -9,15 +9,18 @@ public class PixelSort : MonoBehaviour
 
     public GameObject quad;
 
-    [SerializeField] private Texture2D _src;
+    public Texture2D _src;
     [SerializeField,Range(0,5)] private float _th = 0.5f;
 
-    public float phoneCount;
+    public int phoneCount;
     public float amp = 0.05f;
+    public Texture2D[] textures;
 
     void Start ()
     {
-
+        textures = Resources.LoadAll<Texture2D>("photos_to_display");
+        RandomImg();
+        print(textures);
         tex = new RenderTexture(256, 256, 0);
         tex.enableRandomWrite = true;
         tex.Create();
@@ -51,9 +54,14 @@ public class PixelSort : MonoBehaviour
         shader.SetFloat("th",_th);
 
         // range: 1-1.5
-        _th = Mathf.Sin(Time.realtimeSinceStartup * 0.2f) * amp + (1+(phoneCount*0.125f));
+        _th = Mathf.Sin(Time.realtimeSinceStartup * 0.2f) * amp + (1-amp+(phoneCount*0.125f));
         shader.Dispatch(0,  1, 1, 1);
         
+    }
+
+    public void RandomImg()
+    {
+        _src = textures[Random.Range(0, textures.Length - 1)];
     }
 
 }
