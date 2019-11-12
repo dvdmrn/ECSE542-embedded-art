@@ -7,8 +7,14 @@ public class SortExample : MonoBehaviour
 
     RenderTexture tex;
 
+    public GameObject quad;
+
     [SerializeField] private Texture2D _src;
     [SerializeField,Range(0,5)] private float _th = 0.5f;
+
+    public float phoneCount;
+    public float amp = 0.05f;
+
     void Start ()
     {
 
@@ -16,6 +22,7 @@ public class SortExample : MonoBehaviour
         tex.enableRandomWrite = true;
         tex.Create();
         Graphics.Blit(_src,tex);
+        print(tex);
 
     }
 
@@ -23,9 +30,9 @@ public class SortExample : MonoBehaviour
     {
         int w = Screen.width/2;
         int h = Screen.height/2;
-        int s = 512;
+        // int s = 512;
 
-        GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height), tex);
+        // GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height), tex);
     }
 
     void OnDestroy()
@@ -35,6 +42,7 @@ public class SortExample : MonoBehaviour
 
     void Update(){
 
+        quad.GetComponent<Renderer>().material.mainTexture = tex;
         Graphics.Blit(_src,tex);    
         shader.SetFloat("th",_th);
         shader.SetFloat("w", tex.width);
@@ -42,8 +50,8 @@ public class SortExample : MonoBehaviour
         shader.SetTexture(0, "tex", tex);
         shader.SetFloat("th",_th);
 
-        //_th = Mathf.Sin(Time.realtimeSinceStartup) * 0.7f + 1f;
-
+        // range: 1-1.5
+        _th = Mathf.Sin(Time.realtimeSinceStartup * 0.2f) * amp + (1+(phoneCount*0.125f));
         shader.Dispatch(0,  1, 1, 1);
         
     }

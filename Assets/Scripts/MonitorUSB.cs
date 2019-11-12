@@ -21,7 +21,7 @@ public class MonitorUSB : MonoBehaviour
     GameObject[] FoundVideoPlayer;
     
     void Start(){
-        uitext.text = "0 Phone detected";
+        uitext.text = "0 phones detected";
         if (uiImage == null){
             uiImage = GetComponent<Image>();
         }
@@ -34,8 +34,8 @@ public class MonitorUSB : MonoBehaviour
         lastAmountOfDevices = devices;
         print("Hello :)");
         StartCoroutine("PingUSB");
-        FoundObject = GameObject.FindGameObjectsWithTag("Quad");
-        FoundVideoPlayer = GameObject.FindGameObjectsWithTag("Video Player");
+        // FoundObject = GameObject.FindGameObjectsWithTag("Quad");
+        // FoundVideoPlayer = GameObject.FindGameObjectsWithTag("Video Player");
         foreach (GameObject obj in FoundObject)
         {
             obj.SetActive(false);
@@ -99,9 +99,9 @@ public class MonitorUSB : MonoBehaviour
                 inferredDeviceCount++;
 
                 if (inferredDeviceCount <= 1)
-                    uitext.text = inferredDeviceCount + " Phone detected";
+                    uitext.text = inferredDeviceCount + " phones detected";
                 else
-                    uitext.text = inferredDeviceCount + " Phones detected"; 
+                    uitext.text = inferredDeviceCount + " phones detected"; 
 
                 if (inferredDeviceCount > 0)
                     uiImage.enabled = false;
@@ -149,9 +149,9 @@ public class MonitorUSB : MonoBehaviour
                      uiImage.enabled = true;
 
                 if (inferredDeviceCount <= 1)
-                    uitext.text = inferredDeviceCount + " Phone detected";
+                    uitext.text = inferredDeviceCount + " phones detected";
                 else
-                    uitext.text = inferredDeviceCount + " Phones detected"; 
+                    uitext.text = inferredDeviceCount + " phoness detected"; 
                 
                 switch (inferredDeviceCount)
                 {
