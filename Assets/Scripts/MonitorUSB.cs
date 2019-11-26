@@ -24,7 +24,7 @@ public class MonitorUSB : MonoBehaviour
     int phoneCount;
 
     void Start(){
-        uitext.text = "0 phones detected";
+        uitext.text = "0/4 phones connected";
         if (uiImage == null){
             uiImage = GetComponent<Image>();
             phoneCount = ps.phoneCount;
@@ -102,9 +102,9 @@ public class MonitorUSB : MonoBehaviour
 
                 inferredDeviceCount++;
                 if (inferredDeviceCount <= 1)
-                    uitext.text = inferredDeviceCount + " phones detected";
+                    uitext.text = inferredDeviceCount + "/4 phones connected";
                 else
-                    uitext.text = inferredDeviceCount + " phones detected"; 
+                    uitext.text = inferredDeviceCount + "/4 phones connected"; 
 
                 if (inferredDeviceCount > 0)
                     uiImage.enabled = false;
@@ -153,9 +153,9 @@ public class MonitorUSB : MonoBehaviour
                      uiImage.enabled = true;
 
                 if (inferredDeviceCount <= 1)
-                    uitext.text = inferredDeviceCount + " phones detected";
+                    uitext.text = inferredDeviceCount + "/4 phones connected";
                 else
-                    uitext.text = inferredDeviceCount + " phoness detected"; 
+                    uitext.text = inferredDeviceCount + "/4 phones connected";
                 
                 //switch (inferredDeviceCount)
                 //{
