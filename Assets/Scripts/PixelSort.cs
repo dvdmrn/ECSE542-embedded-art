@@ -54,7 +54,7 @@ public class PixelSort : MonoBehaviour
         shader.SetFloat("th",_th);
 
         // range: 1-1.5
-        _th = Mathf.Sin(Time.realtimeSinceStartup * 0.2f) * amp + (1-amp+(phoneCount*0.125f));
+        _th = 1 + (phoneCount * 0.125f) + Mathf.Sin(Time.realtimeSinceStartup * 0.2f) * amp;
         shader.Dispatch(0,  1, 1, 1);
         
     }

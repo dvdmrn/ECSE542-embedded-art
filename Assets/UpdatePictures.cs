@@ -9,6 +9,7 @@ public class UpdatePictures : MonoBehaviour
     public PixelSort ps;
     public bool flag = true;
     public GameObject phoneDown;
+    public GameObject poof;
     // Update is called once per frame
 
     void Start()
@@ -21,6 +22,7 @@ public class UpdatePictures : MonoBehaviour
         {
             if (flag)
             {
+                
                 ps.RandomImg();
                 flag = false;
                 phoneDown.SetActive(true);     
@@ -30,6 +32,7 @@ public class UpdatePictures : MonoBehaviour
         {
             if (!flag)
             {
+                Instantiate(poof);
                 phoneDown.SetActive(false);
                 flag = true;
             }
